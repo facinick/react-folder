@@ -11,43 +11,49 @@ const root_folder: Folder = {
   contents: [
     {
       id: '0_0',
-      name: 'songs',
+      name: 'home',
       type: FileSystemItemType.FOLDER,
       contents: [
         {
           id: '0_0_0',
-          name: 'old',
+          name: 'user',
           type: FileSystemItemType.FOLDER,
           contents: [
             {
               id: '0_0_0_0',
-              name: 'sunny.mp3',
-              extension: "mp3",
-              type: FileSystemItemType.FILE,
-            },
-            {
-              id: '0_0_0_1',
-              name: 'rasputtin.mp3',
-              extension: "mp3",
-              type: FileSystemItemType.FILE,
-            }
-          ]
-        },
-        {
-          id: '0_0_1',
-          name: 'new',
-          type: FileSystemItemType.FOLDER,
-          contents: [
-            {
-              id: '0_0_1_0',
-              name: 'rock',
+              name: 'documents',
               type: FileSystemItemType.FOLDER,
               contents: [
                 {
-                  id: '0_0_1_0_0',
-                  name: 'rock&roll.mp3',
-                  extension: "mp3",
+                  id: '0_0_0_0_0',
+                  name: 'resume.pdf',
                   type: FileSystemItemType.FILE,
+                  extension: 'pdf',
+                },
+                {
+                  id: '0_0_0_0_1',
+                  name: 'report.docx',
+                  type: FileSystemItemType.FILE,
+                  extension: 'docx',
+                }
+              ]
+            },
+            {
+              id: '0_0_0_1',
+              name: 'photos',
+              type: FileSystemItemType.FOLDER,
+              contents: [
+                {
+                  id: '0_0_0_1_0',
+                  name: 'vacation.jpg',
+                  type: FileSystemItemType.FILE,
+                  extension: 'jpg',
+                },
+                {
+                  id: '0_0_0_1_1',
+                  name: 'profile.png',
+                  type: FileSystemItemType.FILE,
+                  extension: 'png',
                 }
               ]
             }
@@ -57,51 +63,106 @@ const root_folder: Folder = {
     },
     {
       id: '0_1',
-      name: 'todo.MD',
-      extension: 'MD',
-      type: FileSystemItemType.FILE,
+      name: 'var',
+      type: FileSystemItemType.FOLDER,
+      contents: [
+        {
+          id: '0_1_0',
+          name: 'log',
+          type: FileSystemItemType.FOLDER,
+          contents: [
+            {
+              id: '0_1_0_0',
+              name: 'syslog',
+              type: FileSystemItemType.FILE,
+              extension: 'log',
+            }
+          ]
+        },
+        {
+          id: '0_1_1',
+          name: 'www',
+          type: FileSystemItemType.FOLDER,
+          contents: [
+            {
+              id: '0_1_1_0',
+              name: 'index.html',
+              type: FileSystemItemType.FILE,
+              extension: 'html',
+            },
+            {
+              id: '0_1_1_1',
+              name: 'about.html',
+              type: FileSystemItemType.FILE,
+              extension: 'html',
+            }
+          ]
+        }
+      ]
     },
     {
       id: '0_2',
-      name: 'documents',
+      name: 'etc',
       type: FileSystemItemType.FOLDER,
       contents: [
         {
           id: '0_2_0',
-          name: 'certificate.docx',
-          extension: 'docx',
-          type: FileSystemItemType.FILE,
+          name: 'nginx',
+          type: FileSystemItemType.FOLDER,
+          contents: [
+            {
+              id: '0_2_0_0',
+              name: 'nginx.conf',
+              type: FileSystemItemType.FILE,
+              extension: 'conf',
+            }
+          ]
         },
         {
           id: '0_2_1',
-          name: '.pem',
-          extension: 'pem',
+          name: 'fstab',
           type: FileSystemItemType.FILE,
-        },
-        {
-          id: '0_2_2',
-          name: 'names.json',
-          extension: 'json',
-          type: FileSystemItemType.FILE,
+          extension: 'fstab',
         }
       ]
     },
     {
       id: '0_3',
-      name: 'code',
+      name: 'usr',
       type: FileSystemItemType.FOLDER,
       contents: [
         {
           id: '0_3_0',
-          name: 'index.html',
-          type: FileSystemItemType.FILE,
-          extension: 'html'
-        },
+          name: 'local',
+          type: FileSystemItemType.FOLDER,
+          contents: [
+            {
+              id: '0_3_0_0',
+              name: 'bin',
+              type: FileSystemItemType.FOLDER,
+              contents: [
+                {
+                  id: '0_3_0_0_0',
+                  name: 'program',
+                  type: FileSystemItemType.FILE,
+                  extension: 'bin',
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: '0_4',
+      name: 'tmp',
+      type: FileSystemItemType.FOLDER,
+      contents: [
         {
-          id: '0_3_1',
-          name: 'main.tsx',
+          id: '0_4_0',
+          name: 'tempfile.txt',
           type: FileSystemItemType.FILE,
-          extension: 'tsx'
+          extension: 'txt',
         }
       ]
     }

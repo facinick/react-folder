@@ -1,5 +1,5 @@
 import { Atom, Code, Folder as FolderClosedIcon, FolderOpen, Hash, Music, Text } from 'lucide-react'
-import { useContext } from 'react'
+import { ComponentProps, useContext } from 'react'
 import styles from './FolderView.module.css'
 import { FolderContext, FolderProvider } from './context'
 
@@ -30,35 +30,35 @@ type Folder = {
     contents: Array<Folder | File>
 }
 
-function FileIcon({ extension }: { extension: string }) {
+function FileIcon({ extension, ...rest }: { extension: string } & ComponentProps<typeof Hash>) {
 
     switch (extension) {
         case FileExtension.CSS: {
-            return <Hash />
+            return <Hash {...rest} />
         }
         case FileExtension.TSX: {
-            return <Atom />
+            return <Atom {...rest} />
         }
         case FileExtension.HTML: {
-            return <Code />
+            return <Code {...rest} />
         }
         case FileExtension.MP3: {
-            return <Music />
+            return <Music {...rest} />
         }
         default: {
-            return <Text />
+            return <Text {...rest} />
         }
     }
 }
 
-function FolderIcon({ isOpen }: { isOpen: boolean }) {
+function FolderIcon({ isOpen, ...rest }: { isOpen: boolean } & ComponentProps<typeof FolderOpen>) {
 
     switch (isOpen) {
         case true: {
-            return <FolderOpen />
+            return <FolderOpen {...rest} />
         }
         case false: {
-            return <FolderClosedIcon />
+            return <FolderClosedIcon {...rest} />
         }
     }
 }
@@ -67,8 +67,11 @@ function FileView({ file }: { file: File }) {
     return (
         <div
             className={styles.folder_item}>
-            <button id={file.id} className={styles.header}>
-                <FileIcon extension={file.extension} />
+            <button
+                className={styles.header}
+                id={file.id}
+            >
+                <FileIcon className={styles.icon} extension={file.extension} />
                 {file.name}
             </button>
         </div>
@@ -81,6 +84,17 @@ function FolderView({ folder }: { folder: Folder }) {
 
     const isOpen = openFolders.has(folder.id)
 
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        switch (event.key) {
+            case 'ArrowRight':
+                if (!isOpen) toggleFolder(folder.id);
+                break;
+            case 'ArrowLeft':
+                if (isOpen) toggleFolder(folder.id);
+                break;
+        }
+    };
+
     return (
         <div
             // role={folder.isRoot ? "tree" : "treeitem"}
@@ -89,8 +103,9 @@ function FolderView({ folder }: { folder: Folder }) {
                 className={styles.header}
                 id={folder.id}
                 onClick={() => toggleFolder(folder.id)}
+                onKeyDown={handleKeyDown}
             >
-                <FolderIcon isOpen={isOpen} />
+                <FolderIcon className={styles.icon} isOpen={isOpen} />
                 {folder.name}
             </button>
             {
