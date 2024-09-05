@@ -1,0 +1,16 @@
+.folder_item {}
+
+.icon {
+    width: 1.5em;
+}
+
+.contents {
+    margin-left: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    gap: 0.5em;
+}
