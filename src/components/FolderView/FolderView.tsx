@@ -1,6 +1,7 @@
-import { Atom, Code, Folder as FolderClosedIcon, FolderOpen, Hash, Music, Text } from 'lucide-react'
-import { ComponentProps, useContext } from 'react'
-import styles from './FolderView.module.css'
+import { Atom, Code, Folder as FolderClosedIcon, FolderOpen, Hash, Music, Plus, Text } from 'lucide-react'
+import { ComponentProps, useContext, useState } from 'react'
+import { Button } from '../ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { FolderContext, FolderProvider } from './context'
 
 enum FileExtension {
@@ -66,14 +67,15 @@ function FolderIcon({ isOpen, ...rest }: { isOpen: boolean } & ComponentProps<ty
 function FileView({ file }: { file: File }) {
     return (
         <div
-            className={styles.folder_item}>
-            <button
-                className={styles.header}
+        >
+            <Button
+                variant={'link'}
                 id={file.id}
+                className='flex gap-2'
             >
-                <FileIcon className={styles.icon} extension={file.extension} />
-                {file.name}
-            </button>
+                <FileIcon className="h-4 w-4" extension={file.extension} />
+                <span>{file.name}</span>
+            </Button>
         </div>
     )
 }
@@ -81,6 +83,7 @@ function FileView({ file }: { file: File }) {
 function FolderView({ folder }: { folder: Folder }) {
 
     const { openFolders, toggleFolder } = useContext(FolderContext)!
+    const [showAddButton, setShowAddButton] = useState(false)
 
     const isOpen = openFolders.has(folder.id)
 
@@ -93,29 +96,38 @@ function FolderView({ folder }: { folder: Folder }) {
                 if (isOpen) toggleFolder(folder.id);
                 break;
         }
-    };
+    }
 
     return (
         <div
-            // role={folder.isRoot ? "tree" : "treeitem"}
-            className={styles.folder_item}>
-            <button
-                className={styles.header}
-                id={folder.id}
-                onClick={() => toggleFolder(folder.id)}
-                onKeyDown={handleKeyDown}
+            className='text-left'
+        >
+            <div
+                onMouseEnter={() => setShowAddButton(true)}
+                onMouseLeave={() => setShowAddButton(false)}
+                className='flex items-center '
             >
-                <FolderIcon className={styles.icon} isOpen={isOpen} />
-                {folder.name}
-            </button>
+                <Button
+                    variant={'link'}
+                    id={folder.id}
+                    onClick={() => toggleFolder(folder.id)}
+                    onKeyDown={handleKeyDown}
+                    className='flex gap-2'
+                >
+                    <FolderIcon className="h-4 w-4" isOpen={isOpen} />
+                    <span>{folder.name}</span>
+                </Button>
+                {isOpen && <AddNew />}
+            </div>
             {
                 isOpen &&
                 <ul
-                    className={styles.contents}>
+                    className="ml-4 flex flex-col"
+                >
                     {
                         folder.contents.map((file_or_folder) => {
                             return (
-                                <li key={file_or_folder.id}>
+                                <li className='inline-block' key={file_or_folder.id}>
                                     {
                                         file_or_folder.type === FileSystemItemType.FILE &&
                                         <FileView file={file_or_folder} />
@@ -130,7 +142,33 @@ function FolderView({ folder }: { folder: Folder }) {
                     }
                 </ul>
             }
+            {
+                isOpen && folder.contents.length === 0 &&
+                <p>Folder is empty</p>
+            }
         </div>
+    )
+}
+
+function AddNew() {
+
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-6 w-6 p-0">
+                    <Plus className="h-4 w-4" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => { }}>
+                    Add File
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => { }}>
+                    Add Folder
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     )
 }
 

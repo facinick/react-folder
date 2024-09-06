@@ -165,6 +165,12 @@ const root_folder: Folder = {
           extension: 'txt',
         }
       ]
+    },
+    {
+      id: '0_5',
+      name: 'src',
+      type: FileSystemItemType.FOLDER,
+      contents: []
     }
   ]
 }
@@ -174,7 +180,10 @@ function App() {
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <ModeToggle />
+        <header className='flex justify-center gap-4 items-center'>
+          <h1 className="text-2xl font-bold">File Explorer</h1>
+          <ModeToggle />
+        </header>
         <Folder data={root_folder} />
       </ThemeProvider>
     </>
